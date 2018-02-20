@@ -20,24 +20,24 @@ Class representing an NES sprite<br>
 The 'data' argument must be an hex value, the exact value can be obtained by using the [pixeltohex.py](#pixeltohex.py) script<br>
 The 'size' argument must be a tuple containing two elements: (number of horizontal tiles, number of vertical tiles)<br>
 The 'palette' argument must be a pynes.Palette instance<br>
-### Class variables
-#### pynes.NESSprite.pixel_size
+#### Class variables
+##### pynes.NESSprite.pixel_size
 Size of a single "pixel" of the sprite, measured in pixels
 
-### Attributes
-#### pynes.NESSprite.palette
+#### Attributes
+##### pynes.NESSprite.palette
 Palette currently used by the sprite
-#### pynes.NESSprite.size
+##### pynes.NESSprite.size
 Number of orizontal and vertical tiles
-#### pynes.NESSprite.data
+##### pynes.NESSprite.data
 Hex value of the sprite
-#### pynes.NESSprite.image
+##### pynes.NESSprite.image
 Image composed using the hex value recived
-### Methods
-#### pynes.NESSprite.update()
+#### Methods
+##### pynes.NESSprite.update()
 Updates the sprite<br>
 If the sprite is part of a [pygame.sprite.Group](https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.Group) you can also use [pygame.sprite.Group.update()](https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.Group.update)
-#### pynes.NESSprite.save(name: str)
+##### pynes.NESSprite.save(name: str)
 Saves the generated sprite in name.png<br>
 
 ## Functions
