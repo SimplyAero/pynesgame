@@ -42,7 +42,7 @@ Saves the generated sprite in name.png<br>
 
 ## Functions
 
-## pynes.update()
+### pynes.update()
 Updates every pynes.NESSprite instance
 
 ## pixeltohex.py
