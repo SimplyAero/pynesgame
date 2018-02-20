@@ -19,7 +19,8 @@ Instances of 'Palette' are iterables, elements can be edited but not added or de
 Class representing an NES sprite<br>
 The 'data' argument must be an hex value, the exact value can be obtained by using the [pixeltohex.py](#pixeltohex.py) script<br>
 The 'size' argument must be a tuple containing two elements: (number of horizontal tiles, number of vertical tiles)<br>
-The 'palette' argument must be a pynes.Palette instance<br>### Class variables
+The 'palette' argument must be a pynes.Palette instance<br>
+### Class variables
 #### pynes.NESSprite.pixel_size
 Size of a single "pixel" of the sprite, measured in pixels
 
