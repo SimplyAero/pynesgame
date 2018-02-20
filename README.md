@@ -13,7 +13,13 @@ Super Mario's palette from Super Mario Bros can be:<br>
 The hex value is case sensitive, the 'x' must be lowercase, the digits must be uppercase<br>
 Instances of 'Palette' are iterables, elements can be edited but not added or deleted<br>
 
-### Class variables
+
+
+### pynes.NESSprite(data: str, size: tuple, palette: Palette)
+Class representing an NES sprite<br>
+The 'data' argument must be an hex value, the exact value can be obtained by using the [pixeltohex.py](#pixeltohex.py) script<br>
+The 'size' argument must be a tuple containing two elements: (number of horizontal tiles, number of vertical tiles)<br>
+The 'palette' argument must be a pynes.Palette instance<br>### Class variables
 #### pynes.NESSprite.pixel_size
 Size of a single "pixel" of the sprite, measured in pixels
 
@@ -26,12 +32,7 @@ Number of orizontal and vertical tiles
 Hex value of the sprite
 #### pynes.NESSprite.image
 Image composed using the hex value recived
-
-### pynes.NESSprite(data: str, size: tuple, palette: Palette)
-Class representing an NES sprite<br>
-The 'data' argument must be an hex value, the exact value can be obtained by using the [pixeltohex.py](#pixeltohex.py) script<br>
-The 'size' argument must be a tuple containing two elements: (number of horizontal tiles, number of vertical tiles)<br>
-The 'palette' argument must be a pynes.Palette instance<br>
+### Methods
 #### pynes.NESSprite.update()
 Updates the sprite<br>
 If the sprite is part of a [pygame.sprite.Group](https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.Group) you can also use [pygame.sprite.Group.update()](https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.Group.update)
