@@ -33,8 +33,8 @@ The 'data' argument must be an hex value, the exact value can be obtained by usi
 The 'size' argument must be a tuple containing two elements: (number of horizontal tiles, number of vertical tiles)<br>
 The 'palette' argument must be a pynes.Palette instance<br>
 #### pynes.NESSprite.update()
-This function should not be used, use [pynes.update()](#pynes.update()) or [pygame.sprite.Group.update()](https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.Group.update) instead<br>
-Updates the sprite
+Updates the sprite<br>
+If the sprite is part of a [pygame.sprite.Group()](https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.Group) you can also use [pygame.sprite.Group.update()](https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.Group.update)
 #### pynes.NESSprite.save(name: str)
 Saves the generated sprite in name.png<br>
 
