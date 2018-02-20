@@ -34,7 +34,7 @@ The 'size' argument must be a tuple containing two elements: (number of horizont
 The 'palette' argument must be a pynes.Palette instance<br>
 #### pynes.NESSprite.update()
 Updates the sprite<br>
-If the sprite is part of a [pygame.sprite.Group()](https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.Group) you can also use [pygame.sprite.Group.update()](https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.Group.update)
+If the sprite is part of a [pygame.sprite.Group](https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.Group) you can also use [pygame.sprite.Group.update()](https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.Group.update)
 #### pynes.NESSprite.save(name: str)
 Saves the generated sprite in name.png<br>
 
