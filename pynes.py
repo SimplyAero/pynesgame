@@ -80,20 +80,20 @@ class Palette:
     
     def __setitem__(self, key, item):
         if key > 3:
-            raise IndexError("list index out of range")
+            raise IndexError('Palette supports only 4 colors')
         elif key < 0:
             key = 4 - key
             if key < 0:
-                raise IndexError("list index out of range")
+                raise IndexError('Palette supports only 4 colors')
         self.__setattr__('_element_' + str(key), item)
     
     def __getitem__(self, key):
         if key > 3:
-            raise IndexError("list index out of range")
+            raise IndexError('Palette supports only 4 colors')
         elif key < 0:
             key = 4 - key
             if key < 0:
-                raise IndexError("list index out of range")
+                raise IndexError('Palette supports only 4 colors')
         return self.__getattribute__('_element_' + str(key))
 
 
@@ -105,32 +105,19 @@ class NESSprite(pygame.sprite.Sprite):
         super(NESSprite, self).__init__()
         self.palette = palette
         self.size = size
-        self.data = list()
-        unsplit_data = data[2:]
-        while len(unsplit_data) > 0:
-            base_1 = bin(int("0x" + unsplit_data[:2], 16))[2:].zfill(8)
-            base_2 = bin(int("0x" + unsplit_data[2:4], 16))[2:].zfill(8)
-            unsplit_data = unsplit_data[4:]
-            base = str()
-            for index in range(8):
-                if base_1[index] == '0':
-                    if base_2[index] == '0':
-                        base += '0'
-                    else:
-                        base += '2'
-                else:
-                    if base_2[index] == '0':
-                        base += '1'
-                    else:
-                        base += '3'
-            self.data.append((base))
+        self.data = _format_data(data)
         _nes_sprites.add(self)
         self.update()
     
     def update(self):
         row_size = 8 * self.size[0]
         size = (row_size * self.pixel_size, self.size[1] * self.pixel_size * 8)
-        image = pygame.Surface(size, flags=pygame.SRCALPHA)
+        image = pygame.Surface(size,
+                               flags=(pygame.HWSURFACE |
+                                      pygame.SRCALPHA |
+                                      pygame.DOUBLEBUF
+                                     )
+        )
         for index in range(len(self.data) * 8):
             color = self.palette[int(self.data[index // 8][index % 8])]
             position_x = (index % row_size) * self.pixel_size
@@ -140,7 +127,58 @@ class NESSprite(pygame.sprite.Sprite):
         self.image = image
     
     def save(self, name: str):
-        pygame.image.save(self.image, name + ".png")
+        pygame.image.save(self.image, name + '.png')
+
+
+class NESTile(pygame.Surface):
+    
+    pixel_size = 0
+    
+    def __init__(self, data: str, palette: Palette):
+        size = (16 * self.pixel_size, 16 * self.pixel_size)
+        super(NESTile, self).__init__(size, 
+                                      flags=(pygame.HWSURFACE |
+                                             pygame.SRCALPHA |
+                                             pygame.DOUBLEBUF
+                                      )
+        )
+        self.palette = palette
+        self.data = _format_data(data)
+        self.update()
+    
+    def update(self):
+        for index in range(256):
+            color = self.palette[int(self.data[index // 8][index % 8])]
+            position_x = (index % 8) * self.pixel_size
+            position_y = (index // 8) * self.pixel_size
+            pixel = (position_x, position_y, self.pixel_size, self.pixel_size)
+            self.fill(color, pixel)
+    
+    def save(self, name:str):
+        pygame.image.save(self, name + '.png')
+
+
+def _format_data(data: str) -> str:
+    formatted_data = list()
+    unsplit_data = data[2:]
+    while len(unsplit_data) > 0:
+        base_1 = bin(int('0x' + unsplit_data[:2], 16))[2:].zfill(8)
+        base_2 = bin(int('0x' + unsplit_data[2:4], 16))[2:].zfill(8)
+        unsplit_data = unsplit_data[4:]
+        base = str()
+        for index in range(8):
+            if base_1[index] == '0':
+                if base_2[index] == '0':
+                    base += '0'
+                else:
+                    base += '2'
+            else:
+                if base_2[index] == '0':
+                    base += '1'
+                else:
+                    base += '3'
+        formatted_data.append((base))
+    return formatted_data
 
 
 def update():
