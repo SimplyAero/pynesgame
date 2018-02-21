@@ -128,6 +128,9 @@ class NESSprite(pygame.sprite.Sprite):
     
     def save(self, name: str):
         pygame.image.save(self.image, name + '.png')
+    
+    def change_data(self, data: str):
+        self.data = _format_data(data)
 
 
 class NESTile(pygame.Surface):
@@ -156,6 +159,9 @@ class NESTile(pygame.Surface):
     
     def save(self, name:str):
         pygame.image.save(self, name + '.png')
+    
+    def change_data(self, data: str):
+        self.data = _format_data(data)
 
 
 def _format_data(data: str) -> str:
