@@ -73,10 +73,10 @@ _nes_sprites = pygame.sprite.Group()
 class Palette:
     
     def __init__(self,palette):
-        self[0] = _colors[palette[0]] if palette[0] else (0, 0, 0, 0)
-        self[1] = _colors[palette[1]]
-        self[2] = _colors[palette[2]]
-        self[3] = _colors[palette[3]]
+        self[0] = (0, 0, 0, 0)
+        self[1] = _colors[palette[0]]
+        self[2] = _colors[palette[1]]
+        self[3] = _colors[palette[2]]
     
     def __setitem__(self, key, item):
         if key > 3:
