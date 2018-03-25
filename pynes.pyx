@@ -72,7 +72,7 @@ _nes_sprites = pygame.sprite.Group()
 
 class Palette:
     
-    def __init__(self,palette: tuple):
+    def __init__(self,palette):
         self[0] = _colors[palette[0]] if palette[0] else (0, 0, 0, 0)
         self[1] = _colors[palette[1]]
         self[2] = _colors[palette[2]]
@@ -101,7 +101,7 @@ class NESSprite(pygame.sprite.Sprite):
     
     pixel_size = 0
     
-    def __init__(self, data: str, size: tuple, palette: Palette):
+    def __init__(self, data, size, palette):
         super(NESSprite, self).__init__()
         self.palette = palette
         self.size = size
@@ -126,10 +126,10 @@ class NESSprite(pygame.sprite.Sprite):
             image.fill(color, pixel)
         self.image = image
     
-    def save(self, name: str):
+    def save(self, name):
         pygame.image.save(self.image, name + '.png')
     
-    def change_data(self, data: str):
+    def change_data(self, data):
         self.data = _format_data(data)
 
 
@@ -137,7 +137,7 @@ class NESTile(pygame.Surface):
     
     pixel_size = 0
     
-    def __init__(self, data: str, palette: Palette):
+    def __init__(self, data, palette):
         size = (16 * self.pixel_size, 16 * self.pixel_size)
         super(NESTile, self).__init__(size, 
                                       flags=(pygame.HWSURFACE |
@@ -157,14 +157,14 @@ class NESTile(pygame.Surface):
             pixel = (position_x, position_y, self.pixel_size, self.pixel_size)
             self.fill(color, pixel)
     
-    def save(self, name:str):
+    def save(self, name):
         pygame.image.save(self, name + '.png')
     
-    def change_data(self, data: str):
+    def change_data(self, data):
         self.data = _format_data(data)
 
 
-def _format_data(data: str) -> str:
+def _format_data(data):
     formatted_data = list()
     unsplit_data = data[2:]
     while len(unsplit_data) > 0:
@@ -185,6 +185,26 @@ def _format_data(data: str) -> str:
                     base += '3'
         formatted_data.append((base))
     return formatted_data
+
+
+def spritify(image_data, palette, size, pixel_size):
+    data = _format_data(image_data)
+    row_size = 8 * size[0]
+    size = (row_size * pixel_size, size[1] * pixel_size * 8)
+    image = pygame.Surface(size,
+                           flags=(pygame.HWSURFACE |
+                                  pygame.SRCALPHA |
+                                  pygame.DOUBLEBUF
+                                 )
+    )
+    for index in range(len(data) * 8):
+        color = palette[int(data[index // 8][index % 8])]
+        position_x = (index % row_size) * pixel_size
+        position_y = (index // row_size) * pixel_size
+        pixel = (position_x, position_y, pixel_size, pixel_size)
+        image.fill(color, pixel)
+    return image
+    
 
 
 def update():
