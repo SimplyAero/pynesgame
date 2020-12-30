@@ -1,3 +1,5 @@
+# This project is poorly implemented and deprecated, keeping it here for archiving reasons
+
 # pynesgame
 NES-like sprite interface for pygame
 
